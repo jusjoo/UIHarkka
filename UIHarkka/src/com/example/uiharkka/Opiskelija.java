@@ -12,7 +12,7 @@ public class Opiskelija {
 	private String paaAine;
 	private List<Suoritus> suoritetutKurssit;
 
-	public Opiskelija(String nimi, int opNum, int aloitusVuosi, int nopat,
+	public Opiskelija(String nimi, int opNum, String aloitusVuosi, int nopat,
 			String koulutusOhj, String paaAine) {
 
 	}
