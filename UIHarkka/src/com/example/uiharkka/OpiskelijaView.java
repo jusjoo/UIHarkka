@@ -48,7 +48,7 @@ public class OpiskelijaView extends VerticalLayout {
 		TextField koulutusohjelma = new TextField("Koulutusohjelma");
 		koulutusohjelma.setValue(opiskelija.annaKoulutusOhjelma());
 		
-		TextField paaAine = new TextField("P‰‰aine");
+		TextField paaAine = new TextField("P√§√§aine");
 		paaAine.setValue(opiskelija.annaPaaAine());
 		
 		TextField pisteet = new TextField("Opintopisteet");

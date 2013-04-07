@@ -52,8 +52,6 @@ public class UiharkkaUI extends UI {
 		layout.setMargin(true);
 		setContent(layout);
 
-		//layout.addComponent(new OpiskelijaView(allData.getOpiskelijat().get(0), allData));
-
 
 		Table nakymanValinta = new Table("Näkymän valinta");
 		nakymanValinta.setSelectable(true);
@@ -62,6 +60,7 @@ public class UiharkkaUI extends UI {
 		nakymanValinta.addItem(new Object[] { "Kurssit" }, new Integer(1));
 		nakymanValinta.addItem(new Object[] { "Opiskelijat" }, new Integer(2));
 
+		
 
 		Button button = new Button("Click Me");
 		button.addClickListener(new Button.ClickListener() {
@@ -73,6 +72,8 @@ public class UiharkkaUI extends UI {
 		});
 		layout.addComponent(button);
 		layout.addComponent(nakymanValinta);
+		
+		layout.addComponent(new OpiskelijaView(allData.getOpiskelijat().get(0), allData));
 	}
 
 }
