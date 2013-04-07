@@ -5,15 +5,15 @@ import java.util.List;
 
 public class Kandi {
 
-	private String nimi;
-	private List<Kurssi> sisältö;
-	
+	private final String nimi;
+	private final List<Kurssi> sisalto;
+
 	public Kandi(String nimi) {
-		sisältö = new ArrayList<Kurssi>();
+		sisalto = new ArrayList<Kurssi>();
 		this.nimi = nimi;
 	}
-	
+
 	public void add(Kurssi k) {
-		sisältö.add(k);
+		sisalto.add(k);
 	}
 }
