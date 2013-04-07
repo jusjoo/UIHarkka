@@ -27,14 +27,13 @@ public class UiharkkaUI extends UI {
 	protected void init(VaadinRequest request) {
 		final VerticalLayout layout = new VerticalLayout();
 		
+		allData = new AllData();
 		String basepath = VaadinService.getCurrent()
                 .getBaseDirectory().getAbsolutePath();
 		String kandit = basepath + "/data/kandit.txt";
 		String opiskelijat = basepath + "/data/opiskelijat.txt";
 		String suoritukset = basepath + "/data/suoritukset.txt";
-		
-		
-		allData = new AllData();
+				
 		DataImport dataImport;
 		try {
 			dataImport = new DataImport(kandit, opiskelijat, suoritukset);
@@ -46,15 +45,13 @@ public class UiharkkaUI extends UI {
 			e.printStackTrace();
 		}
 		
-		
-		allData.printOpiskelijat();
-		allData.printKurssit();
-		allData.printKandit();
-		
-		
+				
 		layout.setMargin(true);
 		setContent(layout);
-
+		
+		
+		layout.addComponent(new OpiskelijaView(allData.getOpiskelijat().get(0), allData));
+		
 		Button button = new Button("Click Me");
 		button.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {

@@ -42,4 +42,20 @@ public class Opiskelija {
 				+ ", Pääaine: " + paaAine;
 	}
 
+	public String annaNimi() {
+		return nimi;
+	}
+	public String annaAloitusVuosi() {
+		return aloitusvuosi;
+	}
+	public String annaKoulutusOhjelma() {
+		return koulutusohj;
+	}
+	public String annaPaaAine() {	
+		return paaAine;
+	}
+	public int annaPisteet() {
+		return nopat;
+	}
+
 }

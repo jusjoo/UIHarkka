@@ -21,7 +21,6 @@ public class AllData {
 			System.out.println(opiskelijat.get(i));
 		}
 	}
-
 	public void printKurssit() {
 		for (int i = 0; i < kurssit.size(); i++) {
 			System.out.println(kurssit.get(i));
@@ -41,5 +40,15 @@ public class AllData {
 	}
 	public void asetaKandit(List<Kandi> list) {
 		this.kandit = list;
+	}
+	
+	public List<Opiskelija> getOpiskelijat() {
+		return this.opiskelijat;
+	}
+	public List<Kandi> getKandit() {
+		return this.kandit;
+	}
+	public List<Kurssi> getKurssit() {
+		return this.kurssit;
 	}
 }
