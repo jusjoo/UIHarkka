@@ -6,7 +6,7 @@ public class Kurssi {
 	private String kurssinNimi;
 	private int opintopisteet;
 
-	public Kurssi(int kurssiID, String kurssinNimi, int opintopisteet) {
+	public Kurssi(String kurssiID, String kurssinNimi, int opintopisteet) {
 
 	}
 
