@@ -1,5 +1,6 @@
 package com.example.uiharkka;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Opiskelija {
@@ -14,6 +15,8 @@ public class Opiskelija {
 
 	public Opiskelija(String nimi, int opNum, String aloitusvuosi, int nopat,
 			String koulutusohj, String paaAine) {
+		suoritetutKurssit = new ArrayList<Suoritus>();
+		
 		this.nimi = nimi;
 		this.opNum = opNum;
 		this.aloitusvuosi = aloitusvuosi;

@@ -35,6 +35,17 @@ public class DataImport {
 		tuoSuoritukset();
 		tuoKandit();
 	}
+	
+	public List<Opiskelija> getOpiskelijat() {
+		return new ArrayList<Opiskelija>(opiskelijat.values());
+	}
+	public List<Kurssi>	getKurssit() {
+		return new ArrayList<Kurssi>(kurssit.values());
+	}
+	public List<Kandi> getKandit() {
+		return new ArrayList<Kandi>(kandit.values());
+	}
+	
 
 	private void tuoKandit() throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(this.kanditFile));
@@ -92,7 +103,6 @@ public class DataImport {
 		String line;
 		while ((line = reader.readLine()) != null) {
 			String [] parts = line.split(";");
-			
 			// tarkistetaan onko kurssi jo lisätty
 			if (!kurssit.containsKey(parts[1])) {
 				// luodaan jos ei ole
