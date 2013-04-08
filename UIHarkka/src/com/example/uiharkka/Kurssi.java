@@ -17,6 +17,27 @@ public class Kurssi {
 	public String toString() {
 		return "Kurssin nimi: " + kurssinNimi + ", Kurssin ID: " + kurssiID
 				+ ", Kurssin laajuus:" + opintopisteet + "op";
-		
+
+	}
+
+	public String annaID() {
+		return kurssiID;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other == null) {
+			return false;
+		}
+		if (other.getClass() != Kurssi.class) {
+			return false;
+		}
+		if (this == other) {
+			return true;
+		}
+
+		Kurssi kurssi = (Kurssi) other;
+
+		return (this.annaID() == kurssi.annaID());
 	}
 }

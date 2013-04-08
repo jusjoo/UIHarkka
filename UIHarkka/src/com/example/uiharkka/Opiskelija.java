@@ -57,17 +57,25 @@ public class Opiskelija {
 	public String annaNimi() {
 		return nimi;
 	}
+
 	public String annaAloitusVuosi() {
 		return aloitusvuosi;
 	}
+
 	public String annaKoulutusOhjelma() {
 		return koulutusohj;
 	}
-	public String annaPaaAine() {	
+
+	public String annaPaaAine() {
 		return paaAine;
 	}
+
 	public int annaPisteet() {
 		return nopat;
+	}
+
+	public List<Suoritus> annaSuoritukset() {
+		return suoritetutKurssit;
 	}
 
 }

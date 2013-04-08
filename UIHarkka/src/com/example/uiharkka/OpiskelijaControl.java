@@ -1,20 +1,26 @@
 package com.example.uiharkka;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OpiskelijaControl {
 
-	private AllData data;
-	private OpiskelijaView view;
-	private Opiskelija current; 
-	
+	private final AllData data;
+	private final OpiskelijaView view;
+	private final Opiskelija current;
+	private final Kandi kandi;
+
+	private List<Suoritus> kandiinSopimattomat;
+
 	public OpiskelijaControl(Opiskelija o, AllData data) {
 		this.data = data;
 		this.current = o;
-		
+
+		// laitetaan joku oletukseksi
+		this.kandi = this.data.getKandit().get(0);
+
 		this.view = new OpiskelijaView(this);
 	}
-
 
 	public List<Kandi> annaKandit() {
 		// TODO Auto-generated method stub
@@ -26,7 +32,7 @@ public class OpiskelijaControl {
 	}
 
 	public String annaPisteet() {
-		return current.annaPisteet()+"";
+		return current.annaPisteet() + "";
 	}
 
 	public String annaPaaAine() {
@@ -42,13 +48,67 @@ public class OpiskelijaControl {
 	}
 
 	public String getOpNum() {
-		return current.getOpNum()+"";
+		return current.getOpNum() + "";
 	}
 
 	public String annaNimi() {
 		System.out.println(current.annaNimi());
 		return current.annaNimi();
 	}
-	
-	
+
+	public void asetaNykyinenKandi(Kandi k) {
+
+	}
+
+	public List<Suoritus> annaKandiinSopivatSuoritukset() {
+		List<Suoritus> result = new ArrayList<Suoritus>();
+		kandiinSopimattomat = new ArrayList<Suoritus>();
+
+		// käy läpi opiskelijan suoritukset
+		for (Suoritus s : current.annaSuoritukset()) {
+			// käy läpi kandiin kuuluvat kurssit
+			boolean found = false;
+			for (Kurssi k : kandi.annaKurssit()) {
+				if (s.getKurssi().equals(k)) {
+					// jos samat, lisätään tuloslistaan
+					result.add(s);
+					found = true;
+					break;
+				}
+			}
+			// lisätään epäsopivien listaan jos ei löytynyt
+			if (!found) {
+				kandiinSopimattomat.add(s);
+			}
+		}
+		return result;
+	}
+
+	public List<Suoritus> annaKandiinSopimattomatSuoritukset() {
+		if (kandiinSopimattomat != null) {
+			return kandiinSopimattomat;
+		}
+
+		List<Suoritus> result = new ArrayList<Suoritus>();
+
+		// käy läpi opiskelijan suoritukset
+		for (Suoritus s : current.annaSuoritukset()) {
+			// käy läpi kandiin kuuluvat kurssit
+			boolean found = false;
+			for (Kurssi k : kandi.annaKurssit()) {
+				if (s.getKurssi().equals(k)) {
+					// jos samat, skipataan eikä lisätä
+					found = true;
+					break;
+				}
+			}
+			// lisätään epäsopivien listaan jos ei löytynyt samaa
+			if (!found) {
+				result.add(s);
+			}
+		}
+		return result;
+
+	}
+
 }

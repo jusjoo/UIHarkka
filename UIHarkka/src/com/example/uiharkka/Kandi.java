@@ -16,9 +16,13 @@ public class Kandi {
 	public void add(Kurssi k) {
 		sisalto.add(k);
 	}
-	
-	public String annaNimi(){
+
+	public String annaNimi() {
 		return nimi;
-		
+
+	}
+
+	public List<Kurssi> annaKurssit() {
+		return sisalto;
 	}
 }
