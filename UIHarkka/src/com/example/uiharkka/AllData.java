@@ -47,6 +47,14 @@ public class AllData {
 	}
 
 	public List<Opiskelija> getOpiskelijat() {
-		return opiskelijat;
+		return this.opiskelijat;
+	}
+
+	public List<Kandi> getKandit() {
+		return this.kandit;
+	}
+
+	public List<Kurssi> getKurssit() {
+		return this.kurssit;
 	}
 }

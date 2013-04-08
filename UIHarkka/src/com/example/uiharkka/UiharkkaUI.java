@@ -24,13 +24,16 @@ public class UiharkkaUI extends UI {
 	protected void init(VaadinRequest request) {
 		final VerticalLayout layout = new VerticalLayout();
 
+
 		String basepath = VaadinService.getCurrent().getBaseDirectory()
 				.getAbsolutePath();
+
 		String kandit = basepath + "/data/kandit.txt";
 		String opiskelijat = basepath + "/data/opiskelijat.txt";
 		String suoritukset = basepath + "/data/suoritukset.txt";
 
 		allData = new AllData();
+
 		DataImport dataImport;
 		try {
 			dataImport = new DataImport(kandit, opiskelijat, suoritukset);
@@ -41,6 +44,7 @@ public class UiharkkaUI extends UI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 
 		OpiskelijaJoukko opiskelijajoukko = new OpiskelijaJoukko(allData);
 		OpiskelijaJoukkoUI opiskelijajoukkoUI = new OpiskelijaJoukkoUI(
@@ -53,12 +57,15 @@ public class UiharkkaUI extends UI {
 		layout.setMargin(true);
 		setContent(layout);
 
+
 		Table nakymanValinta = new Table("Näkymän valinta");
 		nakymanValinta.setSelectable(true);
 		nakymanValinta.setImmediate(true);
 		nakymanValinta.addContainerProperty("Valinta", String.class, null);
 		nakymanValinta.addItem(new Object[] { "Kurssit" }, new Integer(1));
 		nakymanValinta.addItem(new Object[] { "Opiskelijat" }, new Integer(2));
+
+		
 
 		Button button = new Button("Click Me");
 		button.addClickListener(new Button.ClickListener() {
@@ -70,6 +77,8 @@ public class UiharkkaUI extends UI {
 		});
 		layout.addComponent(button);
 		layout.addComponent(nakymanValinta);
+		
+		layout.addComponent(new OpiskelijaView(allData.getOpiskelijat().get(0), allData));
 	}
 
 }
