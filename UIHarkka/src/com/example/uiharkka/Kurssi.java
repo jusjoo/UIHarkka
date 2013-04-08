@@ -19,4 +19,18 @@ public class Kurssi {
 				+ ", Kurssin laajuus:" + opintopisteet + "op";
 		
 	}
+	
+	public String annaID() {
+		return kurssiID;
+	}
+	
+	public boolean equals(Object other) {
+		if (other == null) return false;
+		if (other.getClass() != Kurssi.class) return false;
+		if (this == other) return true;
+		
+		Kurssi kurssi = (Kurssi)other;
+				
+		return (this.annaID() == kurssi.annaID()); 
+	}
 }

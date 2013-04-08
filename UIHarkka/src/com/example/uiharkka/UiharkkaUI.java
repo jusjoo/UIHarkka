@@ -48,9 +48,9 @@ public class UiharkkaUI extends UI {
 		opiskelijajoukko.setYlaraja(100);
 		opiskelijajoukko.setVuosi("2007S");
 
-		allData.printOpiskelijat();
-		allData.printKurssit();
-		allData.printKandit();
+		//allData.printOpiskelijat();
+		//allData.printKurssit();
+		//allData.printKandit();
 
 		layout.setMargin(true);
 		setContent(layout);

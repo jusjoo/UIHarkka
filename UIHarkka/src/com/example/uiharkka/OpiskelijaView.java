@@ -5,26 +5,37 @@ import java.util.List;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 public class OpiskelijaView extends VerticalLayout {
 	private static final long serialVersionUID = -4186213876588733687L;
 	private OpiskelijaControl control;
+	private Table taulukko;
 	
 	public OpiskelijaView(OpiskelijaControl control) {
-		
 		this.control = control;		
+		
 		showPersonalInfo();
 		luoKandinValinta(control.annaKandit());
+		luoListaSopivista(control.annaKandiinSopivatSuoritukset());
+	}
+
+	private void luoListaSopivista(List<Suoritus> kandiinSopivat) {
+		taulukko = new Table("Kandiin sopivat suoritukset");
 		
+		for(Suoritus s : kandiinSopivat){
+			taulukko.addItem(s);
+		}
+		
+		this.addComponent(taulukko);
 	}
 
 	private void luoKandinValinta(List<Kandi> kandit) {
 		NativeSelect selector = new NativeSelect("Valitse tarkasteltava kandirakenne");
 		for(Kandi k : kandit) {
-			selector.addItem(k.annaNimi());
-			
+			selector.addItem(k.annaNimi());	
 		}
 		this.addComponent(selector);
 	}

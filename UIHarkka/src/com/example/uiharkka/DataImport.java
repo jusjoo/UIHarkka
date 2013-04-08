@@ -50,11 +50,11 @@ public class DataImport {
 	private void tuoKandit() throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(this.kanditFile));
 		
-		// ensimmäinen rivi kertoo, montako kandia tiedostossa on
+		// ensimmï¿½inen rivi kertoo, montako kandia tiedostossa on
 		String line = reader.readLine();
 		int amount = Integer.parseInt(line);
 		
-		// tallennetaan tähän väliaikaisesti parit, mille tutkinnolle mikäkin numero kuuluu
+		// tallennetaan tï¿½hï¿½n vï¿½liaikaisesti parit, mille tutkinnolle mikï¿½kin numero kuuluu
 		HashMap<Integer, String> parit = new HashMap<Integer, String>();
 		
 		// haetaan kandien nimet
@@ -103,19 +103,18 @@ public class DataImport {
 		String line;
 		while ((line = reader.readLine()) != null) {
 			String [] parts = line.split(";");
-			// tarkistetaan onko kurssi jo lisätty
+			// tarkistetaan onko kurssi jo lisï¿½tty
 			if (!kurssit.containsKey(parts[1])) {
-				// luodaan jos ei ole
 				parsiKurssi(parts);
 			}
-		
+	
 			Suoritus s = new Suoritus(parts[3], kurssit.get(parts[1]));
 			opiskelijat.get(Integer.parseInt(parts[0])).lisaaSuoritus(s);
 		}
 	}
 	
 	/*
-	 * Lisää uuden kurssin annetusta suoritusmerkintärivistä
+	 * Lisï¿½ï¿½ uuden kurssin annetusta suoritusmerkintï¿½rivistï¿½
 	 */
 	private void parsiKurssi(String[] parts) {
 		Kurssi k = new Kurssi(parts[1], parts[2], Integer.parseInt(parts[4]));

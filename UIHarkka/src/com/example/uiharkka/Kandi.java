@@ -21,4 +21,8 @@ public class Kandi {
 		return nimi;
 		
 	}
+
+	public List<Kurssi> annaKurssit() {
+		return sisalto;
+	}
 }

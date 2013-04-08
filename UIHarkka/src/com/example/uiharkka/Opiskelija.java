@@ -69,5 +69,8 @@ public class Opiskelija {
 	public int annaPisteet() {
 		return nopat;
 	}
+	public List<Suoritus> annaSuoritukset() {
+		return suoritetutKurssit;
+	}
 
 }

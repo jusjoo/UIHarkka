@@ -18,7 +18,12 @@ public class AllData {
 
 	public void printOpiskelijat() {
 		for (int i = 0; i < opiskelijat.size(); i++) {
+			
 			System.out.println(opiskelijat.get(i));
+			for( Suoritus s : opiskelijat.get(i).annaSuoritukset()) {
+				System.out.println(s.getKurssi());
+			}
+			
 		}
 	}
 
