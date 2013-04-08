@@ -14,6 +14,7 @@ import com.vaadin.ui.VerticalLayout;
 /**
  * Main UI class
  */
+
 @SuppressWarnings("serial")
 public class UiharkkaUI extends UI {
 
@@ -40,6 +41,10 @@ public class UiharkkaUI extends UI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		OpiskelijaJoukko opiskelijajoukko = new OpiskelijaJoukko(allData);
+		OpiskelijaJoukkoUI opiskelijajoukkoUI = new OpiskelijaJoukkoUI(
+				opiskelijajoukko);
 
 		allData.printOpiskelijat();
 		allData.printKurssit();
