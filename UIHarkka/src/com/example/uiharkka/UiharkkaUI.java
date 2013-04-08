@@ -7,7 +7,6 @@ import com.vaadin.server.VaadinService;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -23,7 +22,6 @@ public class UiharkkaUI extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
 		final VerticalLayout layout = new VerticalLayout();
-
 
 		String basepath = VaadinService.getCurrent().getBaseDirectory()
 				.getAbsolutePath();
@@ -45,10 +43,10 @@ public class UiharkkaUI extends UI {
 			e.printStackTrace();
 		}
 
-
 		OpiskelijaJoukko opiskelijajoukko = new OpiskelijaJoukko(allData);
-		OpiskelijaJoukkoUI opiskelijajoukkoUI = new OpiskelijaJoukkoUI(
-				opiskelijajoukko);
+		opiskelijajoukko.setAlaraja(5);
+		opiskelijajoukko.setYlaraja(100);
+		opiskelijajoukko.setVuosi("2007S");
 
 		allData.printOpiskelijat();
 		allData.printKurssit();
@@ -56,16 +54,6 @@ public class UiharkkaUI extends UI {
 
 		layout.setMargin(true);
 		setContent(layout);
-
-
-		Table nakymanValinta = new Table("Näkymän valinta");
-		nakymanValinta.setSelectable(true);
-		nakymanValinta.setImmediate(true);
-		nakymanValinta.addContainerProperty("Valinta", String.class, null);
-		nakymanValinta.addItem(new Object[] { "Kurssit" }, new Integer(1));
-		nakymanValinta.addItem(new Object[] { "Opiskelijat" }, new Integer(2));
-
-		
 
 		Button button = new Button("Click Me");
 		button.addClickListener(new Button.ClickListener() {
@@ -76,11 +64,10 @@ public class UiharkkaUI extends UI {
 			}
 		});
 		layout.addComponent(button);
-		layout.addComponent(nakymanValinta);
-		
-		
-		OpiskelijaControl ctrl = new OpiskelijaControl(allData.getOpiskelijat().get(0), allData);
+		layout.addComponent(opiskelijajoukko.getView());
+
+		OpiskelijaControl ctrl = new OpiskelijaControl(allData.getOpiskelijat()
+				.get(0), allData);
 		layout.addComponent(ctrl.getView());
 	}
-
 }

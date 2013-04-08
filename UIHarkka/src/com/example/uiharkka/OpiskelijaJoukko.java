@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OpiskelijaJoukko {
-	private List<Opiskelija> opiskelijaJoukko = new ArrayList<Opiskelija>();
-	private AllData alldata = new AllData();
+	private final List<Opiskelija> opiskelijaJoukko;
+	private final AllData alldata;
+	private final OpiskelijaJoukkoUI view;
 	private int alaraja;
 	private int ylaraja;
 	private String vuosi;
@@ -13,6 +14,7 @@ public class OpiskelijaJoukko {
 	public OpiskelijaJoukko(AllData alldata) {
 		this.alldata = alldata;
 		opiskelijaJoukko = alldata.getOpiskelijat();
+		this.view = new OpiskelijaJoukkoUI(this);
 	}
 
 	// Palauttaa opiskelijan opiskelun aloittamisvuoden perusteella
@@ -20,7 +22,7 @@ public class OpiskelijaJoukko {
 
 		List<Opiskelija> opiskelijatVuosi = new ArrayList<Opiskelija>();
 		for (int i = 0; i < opiskelijaJoukko.size(); i++) {
-			if (opiskelijaJoukko.get(i).getAloitusvuosi().contains(vuosi)) {
+			if (opiskelijaJoukko.get(i).getAloitusvuosi().equals(vuosi)) {
 				opiskelijatVuosi.add(opiskelijaJoukko.get(i));
 			}
 		}
@@ -71,4 +73,7 @@ public class OpiskelijaJoukko {
 		}
 	}
 
+	public OpiskelijaJoukkoUI getView() {
+		return view;
+	}
 }
