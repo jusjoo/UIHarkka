@@ -1,0 +1,19 @@
+.v-slider {
+	border-top: 1px solid #cccfd0;
+	border-bottom: 1px solid #cccfd0;
+	margin: 5px 0;
+}
+.v-slider-base {
+	/* changing the borders will require adjustments to ISlider.java */
+	height: 2px;
+	background: #f3f3f4;
+	border-top: 1px solid #cbcdce;
+	border-left: 1px solid #cccfd0;
+	border-right: 1px solid #cccfd0;
+}
+.v-slider-handle {
+	width: 12px;
+	height: 12px;
+	margin-top: -5px;
+	cursor: pointer;
+}

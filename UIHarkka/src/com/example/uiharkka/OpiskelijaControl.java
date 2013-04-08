@@ -2,17 +2,52 @@ package com.example.uiharkka;
 
 import java.util.List;
 
+import com.vaadin.ui.Component;
+
 public class OpiskelijaControl {
 
 	private AllData data;
+	private OpiskelijaView view;
+	private Opiskelija current; 
 	
-	public OpiskelijaControl(AllData data) {
+	public OpiskelijaControl(Opiskelija o, AllData data) {
 		this.data = data;
+		this.view = new OpiskelijaView(this);
+		current = o;
 	}
+
 
 	public List<Kandi> annaKandit() {
 		// TODO Auto-generated method stub
 		return data.getKandit();
+	}
+
+	public OpiskelijaView getView() {
+		return view;
+	}
+
+	public String annaPisteet() {
+		return current.annaPisteet()+"";
+	}
+
+	public String annaPaaAine() {
+		return current.annaPaaAine();
+	}
+
+	public String annaKoulutusOhjelma() {
+		return current.annaKoulutusOhjelma();
+	}
+
+	public String annaAloitusVuosi() {
+		return current.annaAloitusVuosi();
+	}
+
+	public String getOpNum() {
+		return current.getOpNum()+"";
+	}
+
+	public String annaNimi() {
+		return current.annaNimi();
 	}
 	
 	

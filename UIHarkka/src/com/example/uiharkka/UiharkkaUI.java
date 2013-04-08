@@ -14,6 +14,7 @@ import com.vaadin.ui.VerticalLayout;
 /**
  * Main UI class
  */
+
 @SuppressWarnings("serial")
 public class UiharkkaUI extends UI {
 
@@ -45,6 +46,10 @@ public class UiharkkaUI extends UI {
 		}
 
 
+		OpiskelijaJoukko opiskelijajoukko = new OpiskelijaJoukko(allData);
+		OpiskelijaJoukkoUI opiskelijajoukkoUI = new OpiskelijaJoukkoUI(
+				opiskelijajoukko);
+
 		allData.printOpiskelijat();
 		allData.printKurssit();
 		allData.printKandit();
@@ -73,7 +78,7 @@ public class UiharkkaUI extends UI {
 		layout.addComponent(button);
 		layout.addComponent(nakymanValinta);
 		
-		layout.addComponent(new OpiskelijaView(allData.getOpiskelijat().get(0), allData));
+		layout.addComponent(new OpiskelijaControl(allData.getOpiskelijat().get(0), allData).getView());
 	}
 
 }

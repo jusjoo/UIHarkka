@@ -10,16 +10,12 @@ import com.vaadin.ui.VerticalLayout;
 
 public class OpiskelijaView extends VerticalLayout {
 	private static final long serialVersionUID = -4186213876588733687L;
-	private Opiskelija opiskelija;
 	private OpiskelijaControl control;
 	
-	public OpiskelijaView(Opiskelija opiskelija, AllData data) {
-		this.opiskelija = opiskelija;
-		control = new OpiskelijaControl(data);
+	public OpiskelijaView(OpiskelijaControl data) {
 		
-		
+		control = data;		
 		showPersonalInfo();
-		
 		luoKandinValinta(control.annaKandit());
 		
 	}
@@ -36,23 +32,23 @@ public class OpiskelijaView extends VerticalLayout {
 	private void showPersonalInfo() {
 		
 		FormLayout layout = new FormLayout();
-		Panel personalInfo = new Panel(opiskelija.annaNimi(), layout);
+		Panel personalInfo = new Panel(control.annaNimi(), layout);
 		personalInfo.setWidth("400px");
 
 		TextField opnro = new TextField("Opiskelijanumero");
-		opnro.setValue("" + opiskelija.getOpNum());
+		opnro.setValue(control.getOpNum());
 		
 		TextField aloitusvuosi = new TextField("Aloitusvuosi");
-		aloitusvuosi.setValue(opiskelija.annaAloitusVuosi());
+		aloitusvuosi.setValue(control.annaAloitusVuosi());
 		
 		TextField koulutusohjelma = new TextField("Koulutusohjelma");
-		koulutusohjelma.setValue(opiskelija.annaKoulutusOhjelma());
+		koulutusohjelma.setValue(control.annaKoulutusOhjelma());
 		
 		TextField paaAine = new TextField("Pääaine");
-		paaAine.setValue(opiskelija.annaPaaAine());
+		paaAine.setValue(control.annaPaaAine());
 		
 		TextField pisteet = new TextField("Opintopisteet");
-		pisteet.setValue("" + opiskelija.annaPisteet());
+		pisteet.setValue(control.annaPisteet());
 		
 		opnro.setReadOnly(true);
 		aloitusvuosi.setReadOnly(true);

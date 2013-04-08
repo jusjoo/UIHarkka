@@ -17,5 +17,6 @@ public class Kurssi {
 	public String toString() {
 		return "Kurssin nimi: " + kurssinNimi + ", Kurssin ID: " + kurssiID
 				+ ", Kurssin laajuus:" + opintopisteet + "op";
+		
 	}
 }

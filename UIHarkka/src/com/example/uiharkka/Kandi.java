@@ -19,5 +19,6 @@ public class Kandi {
 	
 	public String annaNimi(){
 		return nimi;
+		
 	}
 }
