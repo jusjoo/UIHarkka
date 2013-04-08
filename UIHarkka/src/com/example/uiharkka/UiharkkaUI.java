@@ -44,8 +44,8 @@ public class UiharkkaUI extends UI {
 		}
 
 		OpiskelijaJoukko opiskelijajoukko = new OpiskelijaJoukko(allData);
-		opiskelijajoukko.setAlaraja(5);
-		opiskelijajoukko.setYlaraja(100);
+		opiskelijajoukko.setAlaraja(0);
+		opiskelijajoukko.setYlaraja(250);
 		opiskelijajoukko.setVuosi("2007S");
 
 		allData.printOpiskelijat();

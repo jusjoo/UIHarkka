@@ -15,6 +15,7 @@ public class OpiskelijaJoukko {
 		this.alldata = alldata;
 		opiskelijaJoukko = alldata.getOpiskelijat();
 		this.view = new OpiskelijaJoukkoUI(this);
+
 	}
 
 	// Palauttaa opiskelijan opiskelun aloittamisvuoden perusteella
@@ -33,7 +34,8 @@ public class OpiskelijaJoukko {
 	public List<Opiskelija> getOpiskelijatOP() {
 
 		List<Opiskelija> opiskelijatOP = new ArrayList<Opiskelija>();
-
+		ylaraja = 300;
+		alaraja = 0;
 		for (int i = 0; i < opiskelijaJoukko.size(); i++) {
 			if (opiskelijaJoukko.get(i).getNopat() >= alaraja
 					&& opiskelijaJoukko.get(i).getNopat() <= ylaraja) {
@@ -49,12 +51,12 @@ public class OpiskelijaJoukko {
 		return opiskelijaJoukko;
 	}
 
-	public void setAlaraja(int ala) {
-		alaraja = ala;
+	public void setAlaraja(int alaraja) {
+		this.alaraja = alaraja;
 	}
 
-	public void setYlaraja(int yla) {
-		ylaraja = yla;
+	public void setYlaraja(int ylaraja) {
+		this.ylaraja = ylaraja;
 	}
 
 	public void setVuosi(String vuosi) {

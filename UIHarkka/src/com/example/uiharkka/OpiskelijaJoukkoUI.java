@@ -7,7 +7,6 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
-import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -24,10 +23,10 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 	public OpiskelijaJoukkoUI(OpiskelijaJoukko opJoukko) {
 		this.opJoukko = opJoukko;
 		opiskelijaView();
+
 	}
 
 	public void opiskelijaView() {
-		FormLayout layout = new FormLayout();
 
 		// Opintopisteiden alarajan textfield
 		ala.setImmediate(true);
@@ -79,6 +78,7 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 		aVuosi.addTextChangeListener(new TextChangeListener() {
 			@Override
 			public void textChange(final TextChangeEvent event) {
+
 			}
 		});
 
@@ -105,11 +105,11 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 		tulosJoukkoOp.addContainerProperty("OPINTOPISTEET", String.class, null);
 		addTuloksetOp();
 
-		layout.addComponent(ala);
-		layout.addComponent(yla);
-		layout.addComponent(aVuosi);
-		layout.addComponent(tulosJoukkoVuosi);
-		layout.addComponent(tulosJoukkoOp);
+		addComponent(ala);
+		addComponent(yla);
+		addComponent(aVuosi);
+		addComponent(tulosJoukkoVuosi);
+		addComponent(tulosJoukkoOp);
 
 	}
 
@@ -133,9 +133,12 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 		// Onko opintopisteet asetettu textfieldiin?
 		if (opJoukko.noppaCheck()) {
 			for (int i = 1; i < opiskelija.size(); i++) {
-				tulosJoukkoOp.addItem(new Object[] {
-						opiskelija.get(i).getNimi(),
-						opiskelija.get(i).getNopat() }, new Integer(i));
+				tulosJoukkoOp
+						.addItem(
+								new Object[] {
+										opiskelija.get(i).getNimi(),
+										Integer.toString(opiskelija.get(i)
+												.getNopat()) }, new Integer(i));
 			}
 		}
 		// Jos opintopisteitä ei asetettu, aseta kaikki opiskelijat tauluun
