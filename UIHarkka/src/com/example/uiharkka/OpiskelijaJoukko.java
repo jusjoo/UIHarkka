@@ -22,8 +22,9 @@ public class OpiskelijaJoukko {
 	public List<Opiskelija> getOpiskelijaVuosi() {
 
 		List<Opiskelija> opiskelijatVuosi = new ArrayList<Opiskelija>();
+		vuosi = "2004";
 		for (int i = 0; i < opiskelijaJoukko.size(); i++) {
-			if (opiskelijaJoukko.get(i).getAloitusvuosi().equals(vuosi)) {
+			if (opiskelijaJoukko.get(i).getAloitusvuosi().contains(vuosi)) {
 				opiskelijatVuosi.add(opiskelijaJoukko.get(i));
 			}
 		}
