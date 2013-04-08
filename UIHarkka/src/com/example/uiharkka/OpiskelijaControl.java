@@ -7,8 +7,8 @@ public class OpiskelijaControl {
 
 	private final AllData data;
 	private final OpiskelijaView view;
-	private final Opiskelija current;
-	private final Kandi kandi;
+	private Opiskelija current;
+	private Kandi kandi;
 
 	private List<Suoritus> kandiinSopimattomat;
 
@@ -109,6 +109,18 @@ public class OpiskelijaControl {
 		}
 		return result;
 
+	}
+
+	public void vaihdaKandi(String kandiNimi) {
+		kandiinSopimattomat = null;
+		for(Kandi k : data.getKandit()) {
+			if (k.annaNimi().equals(kandiNimi)){
+				this.kandi = k;
+				break;
+			}
+		}
+		view.paivitaListat();
+		
 	}
 
 }

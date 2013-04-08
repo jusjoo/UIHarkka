@@ -13,4 +13,8 @@ public class Suoritus {
 	public Kurssi getKurssi() {
 		return kurssi;
 	}
+
+	public Object annaPvm() {
+		return pvm;
+	}
 }

@@ -40,4 +40,8 @@ public class Kurssi {
 
 		return (this.annaID() == kurssi.annaID());
 	}
+
+	public String annaNimi() {
+		return kurssinNimi;
+	}
 }
