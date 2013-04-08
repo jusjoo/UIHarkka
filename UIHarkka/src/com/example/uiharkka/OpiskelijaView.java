@@ -12,9 +12,9 @@ public class OpiskelijaView extends VerticalLayout {
 	private static final long serialVersionUID = -4186213876588733687L;
 	private OpiskelijaControl control;
 	
-	public OpiskelijaView(OpiskelijaControl data) {
+	public OpiskelijaView(OpiskelijaControl control) {
 		
-		control = data;		
+		this.control = control;		
 		showPersonalInfo();
 		luoKandinValinta(control.annaKandit());
 		

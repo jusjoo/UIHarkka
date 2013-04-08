@@ -78,7 +78,9 @@ public class UiharkkaUI extends UI {
 		layout.addComponent(button);
 		layout.addComponent(nakymanValinta);
 		
-		layout.addComponent(new OpiskelijaControl(allData.getOpiskelijat().get(0), allData).getView());
+		
+		OpiskelijaControl ctrl = new OpiskelijaControl(allData.getOpiskelijat().get(0), allData);
+		layout.addComponent(ctrl.getView());
 	}
 
 }

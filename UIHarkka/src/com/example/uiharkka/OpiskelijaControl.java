@@ -2,8 +2,6 @@ package com.example.uiharkka;
 
 import java.util.List;
 
-import com.vaadin.ui.Component;
-
 public class OpiskelijaControl {
 
 	private AllData data;
@@ -12,8 +10,9 @@ public class OpiskelijaControl {
 	
 	public OpiskelijaControl(Opiskelija o, AllData data) {
 		this.data = data;
+		this.current = o;
+		
 		this.view = new OpiskelijaView(this);
-		current = o;
 	}
 
 
@@ -47,6 +46,7 @@ public class OpiskelijaControl {
 	}
 
 	public String annaNimi() {
+		System.out.println(current.annaNimi());
 		return current.annaNimi();
 	}
 	
