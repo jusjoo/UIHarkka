@@ -14,7 +14,7 @@ public class Suoritus {
 		return kurssi;
 	}
 
-	public Object annaPvm() {
+	public String annaPvm() {
 		return pvm;
 	}
 }

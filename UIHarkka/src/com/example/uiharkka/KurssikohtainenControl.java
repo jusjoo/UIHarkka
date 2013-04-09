@@ -48,6 +48,9 @@ public class KurssikohtainenControl {
 			}
 
 		}
+		if (opiskelijaSuoritus.isEmpty()) {
+			return null;
+		}
 		return opiskelijaSuoritus;
 	}
 

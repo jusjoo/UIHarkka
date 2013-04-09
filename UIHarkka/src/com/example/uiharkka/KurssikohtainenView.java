@@ -28,13 +28,16 @@ public class KurssikohtainenView extends VerticalLayout {
 		suorittajat.setImmediate(true);
 		suorittajat
 				.addContainerProperty("OPISKELIJAN NIMI", String.class, null);
+		suorittajat.addContainerProperty("SUORITUSVUOSI", String.class, null);
 
 		kurssilista.addValueChangeListener(new ValueChangeListener() {
 			@Override
 			public void valueChange(final ValueChangeEvent event) {
-				int valueString = (Integer) event.getProperty().getValue();
+				final String valueString = String.valueOf(event.getProperty()
+						.getValue());
 				String kurssinID = (String) kurssilista.getContainerProperty(
-						valueString, "KURSSIKOODI").getValue();
+						Integer.parseInt(valueString), "KURSSIKOODI")
+						.getValue();
 				ctrl.setKurssiID(kurssinID);
 				ctrl.setYksittainenKurssi();
 				asetaSuorittajat();
@@ -68,8 +71,10 @@ public class KurssikohtainenView extends VerticalLayout {
 		suorittajat.removeAllItems();
 
 		for (int i = 0; i < opiskelija.size(); i++) {
-			suorittajat.addItem(new Object[] { opiskelija.get(i).getNimi() },
+			suorittajat.addItem(
+					new Object[] { opiskelija.get(i).getNimi(), " " },
 					new Integer(i + 1));
 		}
+
 	}
 }
