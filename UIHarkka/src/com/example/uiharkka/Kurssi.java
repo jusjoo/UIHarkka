@@ -12,7 +12,7 @@ public class Kurssi {
 		this.opintopisteet = opintopisteet;
 
 	}
-
+ 
 	@Override
 	public String toString() {
 		return "Kurssin nimi: " + kurssinNimi + ", Kurssin ID: " + kurssiID
