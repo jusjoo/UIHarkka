@@ -3,6 +3,8 @@ package com.example.uiharkka;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vaadin.ui.Notification;
+
 public class OpiskelijaControl {
 
 	private final AllData data;
@@ -23,7 +25,6 @@ public class OpiskelijaControl {
 	}
 
 	public List<Kandi> annaKandit() {
-		// TODO Auto-generated method stub
 		return data.getKandit();
 	}
 
@@ -119,8 +120,16 @@ public class OpiskelijaControl {
 				break;
 			}
 		}
-		view.paivitaListat();
+		view.paivitaTaulut();
 		
+	}
+
+	public void vaihdaOpiskelija() {
+		kandiinSopimattomat = null;
+		this.current = data.getOpiskelijat().get(1);
+		
+		view.paivitaKaikki();
+
 	}
 
 }

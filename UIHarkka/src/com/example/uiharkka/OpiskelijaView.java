@@ -2,31 +2,60 @@ package com.example.uiharkka;
 
 import java.util.List;
 
+import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Field.ValueChangeEvent;
 import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.NativeSelect;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.ListSelect;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
 
 public class OpiskelijaView extends VerticalLayout {
 	private static final long serialVersionUID = -4186213876588733687L;
 	private final OpiskelijaControl control;
+	
+	private HorizontalLayout top = new HorizontalLayout();
+	private HorizontalLayout bottom = new HorizontalLayout();
+	
+	private Panel personalInfo;
 	private Table sopivatTaulukko;
 	private Table sopimattomatTaulukko;
-	private NativeSelect selector;
+	private ListSelect selector;
+	
 
-	public OpiskelijaView(OpiskelijaControl control) {
+
+	public OpiskelijaView(final OpiskelijaControl control) {
 		this.control = control;
-
+		this.setSpacing(true);
+		
+		this.addComponent(top);
+		this.addComponent(bottom);
+		top.setSpacing(true);
+		bottom.setSpacing(true);
+		
 		showPersonalInfo();
 		luoKandinValinta(control.annaKandit());
 		
 		alustaTaulut();
 		luoListaSopivista(control.annaKandiinSopivatSuoritukset());
 		luoListaSopimattomista(control.annaKandiinSopimattomatSuoritukset());
+		
+		Button b = new Button("testi");
+		this.addComponent(b);
+		b.addClickListener(new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				control.vaihdaOpiskelija();
+				
+			}
+		});
 	}
 
 	private void alustaTaulut() {
@@ -51,7 +80,7 @@ public class OpiskelijaView extends VerticalLayout {
 								s.annaPvm()
 							}, new Integer(i));
 		}
-		this.addComponent(sopimattomatTaulukko);
+		bottom.addComponent(sopimattomatTaulukko);
 	}
 
 	private void luoListaSopivista(List<Suoritus> kandiinSopivat) {
@@ -64,33 +93,35 @@ public class OpiskelijaView extends VerticalLayout {
 								s.annaPvm()
 							}, new Integer(i));
 		}
-		this.addComponent(sopivatTaulukko);
+		bottom.addComponent(sopivatTaulukko);
 	}
 
 	private void luoKandinValinta(List<Kandi> kandit) {
-		selector = new NativeSelect(
-				"Valitse tarkasteltava kandirakenne");
+		selector = new ListSelect(
+				"Kandirakenne");
+		selector.setRows(kandit.size());
+		selector.setImmediate(true);
+		selector.setNullSelectionAllowed(false);
 		
-		Button button = new Button("Valitse");
 		for (Kandi k : kandit) {	
 			selector.addItem(k.annaNimi());
-			selector.setValue(k.annaNimi());
 		}
-
-		button.addClickListener(new Button.ClickListener() {
+		
+		selector.addValueChangeListener(new ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(ClickEvent event) {
+			public void valueChange(
+					com.vaadin.data.Property.ValueChangeEvent event) {
 				control.vaihdaKandi(selector.getValue().toString());
 			}
 		});
 		
-		this.addComponent(selector);
-		this.addComponent(button);
+		top.addComponent(selector);
+
 	}
 	
-	public void paivitaListat() {
+	public void paivitaTaulut() {
 		sopivatTaulukko.removeAllItems();
 		sopimattomatTaulukko.removeAllItems();
 
@@ -101,7 +132,7 @@ public class OpiskelijaView extends VerticalLayout {
 	private void showPersonalInfo() {
 
 		FormLayout layout = new FormLayout();
-		Panel personalInfo = new Panel(control.annaNimi(), layout);
+		personalInfo = new Panel(control.annaNimi(), layout);
 		personalInfo.setWidth("400px");
 
 		TextField opnro = new TextField("Opiskelijanumero");
@@ -131,7 +162,24 @@ public class OpiskelijaView extends VerticalLayout {
 		layout.addComponent(paaAine);
 		layout.addComponent(pisteet);
 
-		this.addComponent(personalInfo);
+		top.addComponent(personalInfo);
+	}
+	
+	private void poistaKaikki() {
+		top.removeComponent(this.personalInfo);
+		top.removeComponent(this.selector);
+		bottom.removeComponent(this.sopimattomatTaulukko);
+		bottom.removeComponent(this.sopivatTaulukko);
+	}
+
+	public void paivitaKaikki() {
+		poistaKaikki();
+		
+		showPersonalInfo();
+		luoKandinValinta(control.annaKandit());
+		alustaTaulut();
+		paivitaTaulut();
+		
 	}
 
 }
