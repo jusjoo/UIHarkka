@@ -129,11 +129,10 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 		// Tyhjentää vanhan taulukon
 		tulosJoukkoOp.removeAllItems();
 
-		// Onko opintopisteet asetettu textfieldiin?
-		for (int i = 1; i < opiskelija.size(); i++) {
+		for (int i = 0; i < opiskelija.size(); i++) {
 			tulosJoukkoOp.addItem(new Object[] { opiskelija.get(i).getNimi(),
 					Integer.toString(opiskelija.get(i).getNopat()) },
-					new Integer(i));
+					new Integer(i + 1));
 		}
 	}
 }

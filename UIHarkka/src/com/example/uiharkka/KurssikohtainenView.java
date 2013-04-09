@@ -11,6 +11,7 @@ import com.vaadin.ui.VerticalLayout;
 public class KurssikohtainenView extends VerticalLayout {
 	private final KurssikohtainenControl ctrl;
 	private final Table kurssilista = new Table("Kurssit");
+	private final Table suorittajat = new Table("Suorittajat");
 
 	public KurssikohtainenView(KurssikohtainenControl ctrl) {
 		this.ctrl = ctrl;
@@ -24,18 +25,25 @@ public class KurssikohtainenView extends VerticalLayout {
 		kurssilista.addContainerProperty("KURSSIN NIMI", String.class, null);
 		kurssilista.addContainerProperty("KURSSIKOODI", String.class, null);
 
+		suorittajat.setImmediate(true);
+		suorittajat
+				.addContainerProperty("OPISKELIJAN NIMI", String.class, null);
+
 		kurssilista.addValueChangeListener(new ValueChangeListener() {
 			@Override
 			public void valueChange(final ValueChangeEvent event) {
-				final String valueString = String.valueOf(event.getProperty()
-						.getValue());
-				// opJoukko.setAlaraja(Integer.parseInt(valueString));
-				// addTuloksetOp();
+				int valueString = (Integer) event.getProperty().getValue();
+				String kurssinID = (String) kurssilista.getContainerProperty(
+						valueString, "KURSSIKOODI").getValue();
+				ctrl.setKurssiID(kurssinID);
+				ctrl.setYksittainenKurssi();
+				asetaSuorittajat();
 			}
 		});
 		asetaKurssitListaan();
 
 		addComponent(kurssilista);
+		addComponent(suorittajat);
 
 	}
 
@@ -51,5 +59,17 @@ public class KurssikohtainenView extends VerticalLayout {
 					kurssit.get(i).annaID() }, new Integer(i + 1));
 		}
 
+	}
+
+	public void asetaSuorittajat() {
+		List<Opiskelija> opiskelija = new ArrayList<Opiskelija>();
+		opiskelija = ctrl.getKurssikohtainenSuoritus();
+
+		suorittajat.removeAllItems();
+
+		for (int i = 0; i < opiskelija.size(); i++) {
+			suorittajat.addItem(new Object[] { opiskelija.get(i).getNimi() },
+					new Integer(i + 1));
+		}
 	}
 }
