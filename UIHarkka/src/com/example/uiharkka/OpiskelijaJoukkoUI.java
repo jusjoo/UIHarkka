@@ -6,6 +6,7 @@ import java.util.List;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -28,6 +29,8 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 	public void opiskelijaView() {
 
 		HorizontalLayout horLayout = new HorizontalLayout();
+		Panel panel = new Panel(horLayout);
+		panel.setWidth("600px");
 
 		// Opintopisteiden alarajan textfield
 		ala.setImmediate(true);
@@ -90,14 +93,16 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 			}
 		});
 
-		horLayout.addComponent(ala);
-		addComponent(yla);
-		addComponent(aVuosi);
+		VerticalLayout tekstit = new VerticalLayout();
+		tekstit.addComponent(ala);
+		tekstit.addComponent(yla);
+		tekstit.addComponent(aVuosi);
+		horLayout.addComponent(tekstit);
 
 		horLayout.addComponent(tulosJoukkoVuosi);
 		horLayout.addComponent(tulosJoukkoOp);
 
-		addComponent(this);
+		this.addComponent(panel);
 
 	}
 

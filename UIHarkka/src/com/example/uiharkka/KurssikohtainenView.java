@@ -3,6 +3,8 @@ package com.example.uiharkka;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
@@ -17,11 +19,20 @@ public class KurssikohtainenView extends VerticalLayout {
 
 	public void kurssiView() {
 
-		// Tulostaulu vuoden mukaan
 		kurssilista.setSelectable(true);
 		kurssilista.setImmediate(true);
 		kurssilista.addContainerProperty("KURSSIN NIMI", String.class, null);
 		kurssilista.addContainerProperty("KURSSIKOODI", String.class, null);
+
+		kurssilista.addValueChangeListener(new ValueChangeListener() {
+			@Override
+			public void valueChange(final ValueChangeEvent event) {
+				final String valueString = String.valueOf(event.getProperty()
+						.getValue());
+				// opJoukko.setAlaraja(Integer.parseInt(valueString));
+				// addTuloksetOp();
+			}
+		});
 		asetaKurssitListaan();
 
 		addComponent(kurssilista);
