@@ -44,13 +44,7 @@ public class UiharkkaUI extends UI {
 		}
 
 		OpiskelijaJoukko opiskelijajoukko = new OpiskelijaJoukko(allData);
-		opiskelijajoukko.setAlaraja(0);
-		opiskelijajoukko.setYlaraja(250);
-		opiskelijajoukko.setVuosi("2007S");
-
-		// allData.printOpiskelijat();
-		// allData.printKurssit();
-		// allData.printKandit();
+		KurssikohtainenControl kurssictrl = new KurssikohtainenControl(allData);
 
 		layout.setMargin(true);
 		setContent(layout);
@@ -65,6 +59,7 @@ public class UiharkkaUI extends UI {
 		});
 		layout.addComponent(button);
 		layout.addComponent(opiskelijajoukko.getView());
+		layout.addComponent(kurssictrl.getView());
 
 		OpiskelijaControl ctrl = new OpiskelijaControl(allData.getOpiskelijat()
 				.get(0), allData);

@@ -26,7 +26,9 @@ public class OpiskelijaJoukko {
 
 		List<Opiskelija> opiskelijatVuosi = new ArrayList<Opiskelija>();
 		for (int i = 0; i < opiskelijaJoukko.size(); i++) {
-			if (opiskelijaJoukko.get(i).getAloitusvuosi().equals(vuosi + "S")) {
+			if (opiskelijaJoukko.get(i).getAloitusvuosi().equals(vuosi + "S")
+					|| opiskelijaJoukko.get(i).getAloitusvuosi()
+							.equals(vuosi + "K")) {
 				opiskelijatVuosi.add(opiskelijaJoukko.get(i));
 			}
 		}
