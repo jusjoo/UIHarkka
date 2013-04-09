@@ -3,9 +3,11 @@ package com.example.uiharkka;
 import java.util.List;
 
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Field.ValueChangeEvent;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -27,6 +29,7 @@ public class OpiskelijaView extends VerticalLayout {
 	private Table sopivatTaulukko;
 	private Table sopimattomatTaulukko;
 	private ListSelect selector;
+	private ComboBox opiskelijanValinta;
 	
 
 
@@ -39,6 +42,8 @@ public class OpiskelijaView extends VerticalLayout {
 		top.setSpacing(true);
 		bottom.setSpacing(true);
 		
+		luoOpiskelijanValinta(control.annaOpiskelijat());		
+		
 		showPersonalInfo();
 		luoKandinValinta(control.annaKandit());
 		
@@ -46,16 +51,27 @@ public class OpiskelijaView extends VerticalLayout {
 		luoListaSopivista(control.annaKandiinSopivatSuoritukset());
 		luoListaSopimattomista(control.annaKandiinSopimattomatSuoritukset());
 		
-		Button b = new Button("testi");
-		this.addComponent(b);
-		b.addClickListener(new Button.ClickListener() {
-			
+
+	}
+
+	private void luoOpiskelijanValinta(List<Opiskelija> lista) {
+		opiskelijanValinta = new ComboBox("Valitse opiskelija");
+		opiskelijanValinta.setImmediate(true);
+		opiskelijanValinta.setWidth(300.0f, Unit.PIXELS);
+		opiskelijanValinta.setFilteringMode(FilteringMode.CONTAINS);
+		
+		for (Opiskelija o : lista) {
+			opiskelijanValinta.addItem(o.annaNimi());
+		}
+		
+		opiskelijanValinta.addValueChangeListener(new ValueChangeListener() {
 			@Override
-			public void buttonClick(ClickEvent event) {
-				control.vaihdaOpiskelija();
-				
+			public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
+				control.vaihdaOpiskelija(opiskelijanValinta.getValue().toString());	 			
 			}
 		});
+		
+		top.addComponent(opiskelijanValinta);
 	}
 
 	private void alustaTaulut() {

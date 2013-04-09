@@ -124,12 +124,22 @@ public class OpiskelijaControl {
 		
 	}
 
-	public void vaihdaOpiskelija() {
+	public void vaihdaOpiskelija(String nimi) {
 		kandiinSopimattomat = null;
-		this.current = data.getOpiskelijat().get(1);
 		
+		for(Opiskelija o : data.getOpiskelijat()){
+			if (o.annaNimi().equals(nimi)) {
+				this.current = o;
+				break;
+			}
+		}
+				
 		view.paivitaKaikki();
 
+	}
+
+	public List<Opiskelija> annaOpiskelijat() {
+		return data.getOpiskelijat();
 	}
 
 }
