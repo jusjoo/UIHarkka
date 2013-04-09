@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.event.FieldEvents.TextChangeEvent;
-import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -43,11 +41,19 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 		aVuosi.setInputPrompt("Aloitusvuosi");
 		aVuosi.setMaxLength(10);
 
-		ala.addTextChangeListener(new TextChangeListener() {
-			@Override
-			public void textChange(final TextChangeEvent event) {
-			}
-		});
+		// Tulostaulu vuoden mukaan
+		tulosJoukkoVuosi.setSelectable(true);
+		tulosJoukkoVuosi.setImmediate(true);
+		tulosJoukkoVuosi.addContainerProperty("OPISKELIJA", String.class, null);
+		tulosJoukkoVuosi.addContainerProperty("ALOITUSVUOSI", String.class,
+				null);
+		addTuloksetVuosi();
+
+		// Tulostaulu opintopisteiden mukaan
+		tulosJoukkoOp.setSelectable(true);
+		tulosJoukkoOp.setImmediate(true);
+		tulosJoukkoOp.addContainerProperty("OPISKELIJA", String.class, null);
+		tulosJoukkoOp.addContainerProperty("OPINTOPISTEET", String.class, null);
 
 		ala.addValueChangeListener(new ValueChangeListener() {
 			@Override
@@ -55,13 +61,7 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 				final String valueString = String.valueOf(event.getProperty()
 						.getValue());
 				opJoukko.setAlaraja(Integer.parseInt(valueString));
-
-			}
-		});
-
-		yla.addTextChangeListener(new TextChangeListener() {
-			@Override
-			public void textChange(final TextChangeEvent event) {
+				addTuloksetOp();
 			}
 		});
 
@@ -71,13 +71,7 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 				final String valueString = String.valueOf(event.getProperty()
 						.getValue());
 				opJoukko.setYlaraja(Integer.parseInt(valueString));
-
-			}
-		});
-
-		aVuosi.addTextChangeListener(new TextChangeListener() {
-			@Override
-			public void textChange(final TextChangeEvent event) {
+				addTuloksetOp();
 
 			}
 		});
@@ -88,22 +82,10 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 				final String valueString = String.valueOf(event.getProperty()
 						.getValue());
 				opJoukko.setVuosi(valueString);
+				addTuloksetVuosi();
 
 			}
 		});
-
-		tulosJoukkoVuosi.setSelectable(true);
-		tulosJoukkoVuosi.setImmediate(true);
-		tulosJoukkoVuosi.addContainerProperty("OPISKELIJA", String.class, null);
-		tulosJoukkoVuosi.addContainerProperty("ALOITUSVUOSI", String.class,
-				null);
-		addTuloksetVuosi();
-
-		tulosJoukkoOp.setSelectable(true);
-		tulosJoukkoOp.setImmediate(true);
-		tulosJoukkoOp.addContainerProperty("OPISKELIJA", String.class, null);
-		tulosJoukkoOp.addContainerProperty("OPINTOPISTEET", String.class, null);
-		addTuloksetOp();
 
 		addComponent(ala);
 		addComponent(yla);
@@ -117,6 +99,9 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 	public void addTuloksetVuosi() {
 		List<Opiskelija> opiskelija = new ArrayList<Opiskelija>();
 		opiskelija = opJoukko.getOpiskelijaVuosi();
+
+		tulosJoukkoVuosi.removeAllItems();
+
 		for (int i = 0; i < opiskelija.size(); i++) {
 
 			tulosJoukkoVuosi.addItem(new Object[] {
@@ -130,25 +115,14 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 		List<Opiskelija> opiskelija = new ArrayList<Opiskelija>();
 		opiskelija = opJoukko.getOpiskelijatOP();
 
-		// Onko opintopisteet asetettu textfieldiin?
-		if (opJoukko.noppaCheck()) {
-			for (int i = 1; i < opiskelija.size(); i++) {
-				tulosJoukkoOp
-						.addItem(
-								new Object[] {
-										opiskelija.get(i).getNimi(),
-										Integer.toString(opiskelija.get(i)
-												.getNopat()) }, new Integer(i));
-			}
-		}
-		// Jos opintopisteitä ei asetettu, aseta kaikki opiskelijat tauluun
-		else {
-			for (int i = 1; i < opiskelija.size(); i++) {
-				tulosJoukkoOp.addItem(new Object[] {
-						opiskelija.get(i).getNimi(),
-						opiskelija.get(i).getNopat() }, new Integer(i));
-			}
-		}
+		// Tyhjentää vanhan taulukon
+		tulosJoukkoOp.removeAllItems();
 
+		// Onko opintopisteet asetettu textfieldiin?
+		for (int i = 1; i < opiskelija.size(); i++) {
+			tulosJoukkoOp.addItem(new Object[] { opiskelija.get(i).getNimi(),
+					Integer.toString(opiskelija.get(i).getNopat()) },
+					new Integer(i));
+		}
 	}
 }

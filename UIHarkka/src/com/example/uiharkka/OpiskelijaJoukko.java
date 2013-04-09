@@ -15,6 +15,9 @@ public class OpiskelijaJoukko {
 		this.alldata = alldata;
 		opiskelijaJoukko = alldata.getOpiskelijat();
 		this.view = new OpiskelijaJoukkoUI(this);
+		alaraja = 0;
+		ylaraja = 0;
+		vuosi = " ";
 
 	}
 
@@ -22,9 +25,8 @@ public class OpiskelijaJoukko {
 	public List<Opiskelija> getOpiskelijaVuosi() {
 
 		List<Opiskelija> opiskelijatVuosi = new ArrayList<Opiskelija>();
-		vuosi = "2004";
 		for (int i = 0; i < opiskelijaJoukko.size(); i++) {
-			if (opiskelijaJoukko.get(i).getAloitusvuosi().contains(vuosi)) {
+			if (opiskelijaJoukko.get(i).getAloitusvuosi().equals(vuosi + "S")) {
 				opiskelijatVuosi.add(opiskelijaJoukko.get(i));
 			}
 		}
@@ -35,8 +37,6 @@ public class OpiskelijaJoukko {
 	public List<Opiskelija> getOpiskelijatOP() {
 
 		List<Opiskelija> opiskelijatOP = new ArrayList<Opiskelija>();
-		ylaraja = 300;
-		alaraja = 0;
 		for (int i = 0; i < opiskelijaJoukko.size(); i++) {
 			if (opiskelijaJoukko.get(i).getNopat() >= alaraja
 					&& opiskelijaJoukko.get(i).getNopat() <= ylaraja) {
@@ -66,14 +66,6 @@ public class OpiskelijaJoukko {
 
 	public String getVuosi() {
 		return vuosi;
-	}
-
-	public boolean noppaCheck() {
-		if (alaraja >= 0 && ylaraja >= 0) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	public OpiskelijaJoukkoUI getView() {
