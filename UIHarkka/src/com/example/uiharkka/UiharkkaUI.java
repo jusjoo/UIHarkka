@@ -7,6 +7,7 @@ import com.vaadin.server.VaadinService;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -18,11 +19,13 @@ import com.vaadin.ui.VerticalLayout;
 public class UiharkkaUI extends UI {
 
 	private AllData allData;
+	private TabSheet layout;
 
 	@Override
 	protected void init(VaadinRequest request) {
-		final VerticalLayout layout = new VerticalLayout();
-
+		layout = new TabSheet();
+		setContent(layout);
+		
 		String basepath = VaadinService.getCurrent().getBaseDirectory()
 				.getAbsolutePath();
 
@@ -46,23 +49,15 @@ public class UiharkkaUI extends UI {
 		OpiskelijaJoukko opiskelijajoukko = new OpiskelijaJoukko(allData);
 		KurssikohtainenControl kurssictrl = new KurssikohtainenControl(allData);
 
-		layout.setMargin(true);
-		setContent(layout);
+		
+		
 
-		Button button = new Button("Click Me");
-		button.addClickListener(new Button.ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				layout.addComponent(new Label("Thank you for clicking"));
 
-			}
-		});
-		layout.addComponent(button);
-		layout.addComponent(opiskelijajoukko.getView());
-		layout.addComponent(kurssictrl.getView());
+		layout.addTab(opiskelijajoukko.getView(), "Opiskelijajoukon näkymä");
+		layout.addTab(kurssictrl.getView(), "Kurssikohtainen näkymä");
 
 		OpiskelijaControl ctrl = new OpiskelijaControl(allData.getOpiskelijat()
 				.get(0), allData);
-		layout.addComponent(ctrl.getView());
+		layout.addTab(ctrl.getView(), "Opiskelijakohtainen näkymä");
 	}
 }
