@@ -48,16 +48,17 @@ public class UiharkkaUI extends UI {
 
 		OpiskelijaJoukko opiskelijajoukko = new OpiskelijaJoukko(allData);
 		KurssikohtainenControl kurssictrl = new KurssikohtainenControl(allData);
-
+		OpiskelijaControl opiskelijaControl = new OpiskelijaControl(allData.getOpiskelijat()
+				.get(0), allData);
+		ConfigControl config = new ConfigControl();
 		
 		
 
 
 		layout.addTab(opiskelijajoukko.getView(), "Opiskelijajoukon näkymä");
 		layout.addTab(kurssictrl.getView(), "Kurssikohtainen näkymä");
-
-		OpiskelijaControl ctrl = new OpiskelijaControl(allData.getOpiskelijat()
-				.get(0), allData);
-		layout.addTab(ctrl.getView(), "Opiskelijakohtainen näkymä");
+		layout.addTab(opiskelijaControl.getView(), "Opiskelijakohtainen näkymä");
+		layout.addTab(config.getView(), "Konfiguraatio");
+		
 	}
 }

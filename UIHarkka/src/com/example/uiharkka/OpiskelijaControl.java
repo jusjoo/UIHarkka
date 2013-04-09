@@ -53,7 +53,6 @@ public class OpiskelijaControl {
 	}
 
 	public String annaNimi() {
-		System.out.println(current.annaNimi());
 		return current.annaNimi();
 	}
 
