@@ -47,8 +47,7 @@ public class UiharkkaUI extends UI {
 		OpiskelijaControl opiskelijaControl = new OpiskelijaControl(allData
 				.getOpiskelijat().get(0), allData);
 		ConfigControl config = new ConfigControl();
-		KandiTutkintoControl kandictrl = new KandiTutkintoControl(
-				allData.getOpiskelijat());
+		KandiTutkintoControl kandictrl = new KandiTutkintoControl(allData);
 
 		layout.addTab(opiskelijajoukko.getView(), "Opiskelijajoukon näkymä");
 		layout.addTab(kurssictrl.getView(), "Kurssikohtainen näkymä");
