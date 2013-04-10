@@ -8,6 +8,7 @@ public class KurssikohtainenControl {
 	private final AllData data;
 	private final List<Kurssi> kurssit;
 	private final List<Opiskelija> opiskelijat;
+	private final List<String> pvm;
 	private final KurssikohtainenView view;
 	private String kurssiID;
 	private Kurssi yksittainenKurssi;
@@ -18,6 +19,7 @@ public class KurssikohtainenControl {
 		opiskelijat = data.getOpiskelijat();
 		view = new KurssikohtainenView(this);
 		kurssiID = "";
+		pvm = new ArrayList<String>();
 
 	}
 
@@ -44,6 +46,8 @@ public class KurssikohtainenControl {
 				if (opiskelijanKurssit.get(k).getKurssi().annaNimi()
 						.equals(yksittainenKurssi.annaNimi())) {
 					opiskelijaSuoritus.add(opiskelijat.get(i));
+					// Lisää myös suorituspvm eri listaan
+					this.pvm.add(opiskelijanKurssit.get(k).annaPvm());
 				}
 			}
 
@@ -54,6 +58,15 @@ public class KurssikohtainenControl {
 		return opiskelijaSuoritus;
 	}
 
+	public List<String> getPvm() {
+		return pvm;
+	}
+
+	public void clearPvm() {
+		this.pvm.clear();
+	}
+
+	// Mikä on tarkasteltava kurssi?
 	public void setYksittainenKurssi() {
 		yksittainenKurssi = null;
 		for (int i = 0; i < kurssit.size(); i++) {

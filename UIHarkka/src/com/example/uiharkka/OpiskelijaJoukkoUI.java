@@ -48,7 +48,6 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 		aVuosi.setMaxLength(10);
 
 		// Tulostaulu vuoden mukaan
-		tulosJoukkoVuosi.setSelectable(true);
 		tulosJoukkoVuosi.setImmediate(true);
 		tulosJoukkoVuosi.addContainerProperty("OPISKELIJA", String.class, null);
 		tulosJoukkoVuosi.addContainerProperty("ALOITUSVUOSI", String.class,
@@ -56,7 +55,6 @@ public class OpiskelijaJoukkoUI extends VerticalLayout {
 		addTuloksetVuosi();
 
 		// Tulostaulu opintopisteiden mukaan
-		tulosJoukkoOp.setSelectable(true);
 		tulosJoukkoOp.setImmediate(true);
 		tulosJoukkoOp.addContainerProperty("OPISKELIJA", String.class, null);
 		tulosJoukkoOp.addContainerProperty("OPINTOPISTEET", String.class, null);

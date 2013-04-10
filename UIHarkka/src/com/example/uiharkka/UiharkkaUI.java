@@ -4,12 +4,8 @@ import java.io.IOException;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinService;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 
 /**
  * Main UI class
@@ -25,7 +21,7 @@ public class UiharkkaUI extends UI {
 	protected void init(VaadinRequest request) {
 		layout = new TabSheet();
 		setContent(layout);
-		
+
 		String basepath = VaadinService.getCurrent().getBaseDirectory()
 				.getAbsolutePath();
 
@@ -48,17 +44,18 @@ public class UiharkkaUI extends UI {
 
 		OpiskelijaJoukko opiskelijajoukko = new OpiskelijaJoukko(allData);
 		KurssikohtainenControl kurssictrl = new KurssikohtainenControl(allData);
-		OpiskelijaControl opiskelijaControl = new OpiskelijaControl(allData.getOpiskelijat()
-				.get(0), allData);
+		OpiskelijaControl opiskelijaControl = new OpiskelijaControl(allData
+				.getOpiskelijat().get(0), allData);
 		ConfigControl config = new ConfigControl();
-		
-		
-
+		KandiTutkintoControl kandictrl = new KandiTutkintoControl(
+				allData.getOpiskelijat());
 
 		layout.addTab(opiskelijajoukko.getView(), "Opiskelijajoukon näkymä");
 		layout.addTab(kurssictrl.getView(), "Kurssikohtainen näkymä");
 		layout.addTab(opiskelijaControl.getView(), "Opiskelijakohtainen näkymä");
 		layout.addTab(config.getView(), "Konfiguraatio");
-		
+
+		layout.addTab(kandictrl.getView(), "Kanditutkintonäkymät");
+
 	}
 }

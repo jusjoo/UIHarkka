@@ -50,12 +50,11 @@ public class KurssikohtainenView extends VerticalLayout {
 
 	}
 
+	// Kaikki kurssit tauluun
 	public void asetaKurssitListaan() {
 		List<Kurssi> kurssit = new ArrayList<Kurssi>();
 		kurssit = ctrl.getKurssit();
-
 		kurssilista.removeAllItems();
-
 		for (int i = 0; i < kurssit.size(); i++) {
 
 			kurssilista.addItem(new Object[] { kurssit.get(i).annaNimi(),
@@ -65,16 +64,25 @@ public class KurssikohtainenView extends VerticalLayout {
 	}
 
 	public void asetaSuorittajat() {
-		List<Opiskelija> opiskelija = new ArrayList<Opiskelija>();
-		opiskelija = ctrl.getKurssikohtainenSuoritus();
 
+		List<Opiskelija> opiskelija = new ArrayList<Opiskelija>();
+		// Suorituspvm-lista
+		List<String> pvm = new ArrayList<String>();
+		opiskelija = ctrl.getKurssikohtainenSuoritus();
+		pvm = ctrl.getPvm();
+
+		// Tyhjennä taulu ennen uutta lisäystä
 		suorittajat.removeAllItems();
 
+		// Aseta opiskelijat ja suorituspvm suorituksen mukaan
 		for (int i = 0; i < opiskelija.size(); i++) {
 			suorittajat.addItem(
-					new Object[] { opiskelija.get(i).getNimi(), " " },
+					new Object[] { opiskelija.get(i).getNimi(), pvm.get(i) },
 					new Integer(i + 1));
 		}
+
+		// Tyhjennä pvm-lista lopuksi
+		ctrl.clearPvm();
 
 	}
 }
