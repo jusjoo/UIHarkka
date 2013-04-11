@@ -1,11 +1,14 @@
 package com.example.uiharkka;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.ListSelect;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.VerticalLayout;
@@ -16,6 +19,7 @@ public class KandiTutkintoView extends VerticalLayout {
 	private TwinColSelect op;
 	private List<Opiskelija> opiskelijalista;
 	private final List<Opiskelija> valitutOp;
+	private List<String> opListasta;
 	private ListSelect selector;
 	private Table tulosJoukko;
 
@@ -26,10 +30,27 @@ public class KandiTutkintoView extends VerticalLayout {
 	}
 
 	public void kandiView() {
+
+		HorizontalLayout horLayout = new HorizontalLayout();
+		Panel panel = new Panel(horLayout);
+		panel.setWidth("800px");
+		op = new TwinColSelect();
+		selector = new ListSelect("Kandirakenne");
 		tulosJoukko = new Table();
-		asetaKaikkiOpiskelijat();
+
+		// Tulostaulu opintopisteiden mukaan
+		tulosJoukko.setImmediate(true);
+		tulosJoukko.addContainerProperty("OPISKELIJA", String.class, null);
+		tulosJoukko.addContainerProperty("KURSSIT KÄYTY", Integer.class, null);
+		tulosJoukko.addContainerProperty("KANDI", String.class, null);
+		horLayout.addComponent(selector);
+		horLayout.addComponent(op);
+		horLayout.addComponent(tulosJoukko);
+
 		luoKandinValinta(ctrl.annaKandit());
-		addComponent(tulosJoukko);
+		asetaKaikkiOpiskelijat();
+
+		this.addComponent(panel);
 
 	}
 
@@ -37,9 +58,6 @@ public class KandiTutkintoView extends VerticalLayout {
 
 		opiskelijalista = new ArrayList<Opiskelija>();
 		opiskelijalista = ctrl.getOpiskelijat();
-
-		// Kaikki twincol-setit täällä
-		TwinColSelect op = new TwinColSelect();
 
 		op.setNullSelectionAllowed(true);
 		op.setMultiSelect(true);
@@ -59,29 +77,43 @@ public class KandiTutkintoView extends VerticalLayout {
 		op.addValueChangeListener(new ValueChangeListener() {
 			@Override
 			public void valueChange(final ValueChangeEvent event) {
-				final String valueString = String.valueOf(event.getProperty()
+				String valueString = String.valueOf(event.getProperty()
 						.getValue());
-				vertaaKandit(valueString);
-
+				tulosJoukko.removeAllItems();
+				// Trimmaa tulosta
+				valueString = valueString.replace("[", "");
+				valueString = valueString.replace("]", "");
+				System.out.println(valueString);
+				// Viipaloi arraylistiin
+				opListasta = new ArrayList<String>(Arrays.asList(valueString
+						.split(", ")));
+				vertaaKandit(opListasta);
 			}
 		});
 
-		addComponent(op);
 	}
 
-	public void vertaaKandit(String value) {
+	public void tarkkaileListaMuutokset() {
+
+	}
+
+	public void vertaaKandit(List<String> value) {
+		valitutOp.clear();
 		for (int i = 0; i < opiskelijalista.size(); i++) {
-			if (opiskelijalista.get(i).annaNimi().equals(value)) {
-				valitutOp.add(opiskelijalista.get(i));
-				// ctrl.annaKandiinSopivatSuoritukset(opiskelijalista.get(i));
+			for (int k = 0; k < opListasta.size(); k++) {
+				if (opiskelijalista.get(i).annaNimi().equals(value.get(k))) {
+					valitutOp.add(opiskelijalista.get(i));
+				}
 			}
+
 		}
+		tulosJoukko.removeAllItems();
 		asetaKandiOpiskelijat();
 
 	}
 
 	private void luoKandinValinta(List<Kandi> kandit) {
-		selector = new ListSelect("Kandirakenne");
+
 		selector.setRows(kandit.size());
 		selector.setImmediate(true);
 		selector.setNullSelectionAllowed(false);
@@ -97,22 +129,19 @@ public class KandiTutkintoView extends VerticalLayout {
 			public void valueChange(
 					com.vaadin.data.Property.ValueChangeEvent event) {
 				ctrl.vaihdaKandi(selector.getValue().toString());
+				if (opListasta == null) {
+					System.out.println("TYHJÄ"); // TÄHÄN VOIS LAITTAA
+													// VAROTUKSEN?
+				} else {
+					vertaaKandit(opListasta);
+				}
 			}
 		});
-
-		addComponent(selector);
 
 	}
 
 	public void asetaKandiOpiskelijat() {
-
-		// Tulostaulu opintopisteiden mukaan
-		tulosJoukko.setImmediate(true);
-		tulosJoukko.addContainerProperty("OPISKELIJA", String.class, null);
-		tulosJoukko.addContainerProperty("KURSSIT KÄYTY", String.class, null);
-
 		tulosJoukko.removeAllItems();
-
 		for (int i = 0; i < valitutOp.size(); i++) {
 
 			tulosJoukko
@@ -120,7 +149,8 @@ public class KandiTutkintoView extends VerticalLayout {
 							new Object[] {
 									valitutOp.get(i).getNimi(),
 									ctrl.annaKandiinSopivatSuoritukset(valitutOp
-											.get(i)) }, new Integer(i + 1));
+											.get(i)), ctrl.getKandi() },
+							new Integer(i + 1));
 		}
 
 	}

@@ -46,6 +46,10 @@ public class KandiTutkintoControl {
 		this.kandi = kandi;
 	}
 
+	public String getKandi() {
+		return kandi.annaNimi();
+	}
+
 	public List<Kandi> annaKandit() {
 		return data.getKandit();
 	}
