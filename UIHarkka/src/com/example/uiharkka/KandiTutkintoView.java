@@ -83,7 +83,6 @@ public class KandiTutkintoView extends VerticalLayout {
 				// Trimmaa tulosta
 				valueString = valueString.replace("[", "");
 				valueString = valueString.replace("]", "");
-				System.out.println(valueString);
 				// Viipaloi arraylistiin
 				opListasta = new ArrayList<String>(Arrays.asList(valueString
 						.split(", ")));
