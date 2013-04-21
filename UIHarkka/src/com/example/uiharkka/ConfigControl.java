@@ -34,6 +34,9 @@ public class ConfigControl {
 
 	public void asetaSisalto(String sisalto, UploadType type) {
 		lahetetyt.put(type, sisalto);
+		if (lahetetyt.keySet().size() == UploadType.values().length) {
+			view.asetaValmiiksi();
+		}
 	}
 	
 	public void paivitaUudetSisallot() {

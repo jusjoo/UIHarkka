@@ -114,7 +114,6 @@ public class ConfigView extends FormLayout{
 		public void uploadFinished(FinishedEvent event) {
 			this.setValue("Lähetys valmis");
 			control.asetaSisalto(vastaanottaja.getReceived(), vastaanottaja.getType());
-			paivita.setEnabled(true);
 		}
 
 		@Override
@@ -131,6 +130,10 @@ public class ConfigView extends FormLayout{
 		public void uploadStarted(StartedEvent event) {
 			this.setValue("lähetys alkaa...");
 		}
+	}
+	
+	public void asetaValmiiksi() {
+		paivita.setEnabled(true);
 	}
 	
 }
